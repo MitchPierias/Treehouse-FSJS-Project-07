@@ -20,7 +20,7 @@ export default class Search extends React.Component {
     didSubmitSearch(event) {
         event.preventDefault();
         const query = this.searchFieldRef.current.value.toLowerCase();
-        this.props.history.push(`/${query}`);
+        this.props.history.push(`/${query.replace(/\W/gi,'').toLowerCase()}`);
     }
 
     render() {
@@ -36,8 +36,18 @@ export default class Search extends React.Component {
                     </button>
                 </form>
                 <Navigation topics={["Sunset","Waterfall","Beach"]}/>
-                <FlickrSearch topic={this.props.match.params.query}/>
+                {this.props.match.params.query ? <FlickrSearch topic={this.props.match.params.query}/> : <WelcomeMessage/>}
             </div>
         )
     }
+}
+
+function WelcomeMessage() {
+    return (
+        <div>
+            <h2>Welcome</h2>
+            <p>What would you like to find?</p>
+            <p>You can select from the topics above or search for something using the search bar</p>
+        </div>
+    )
 }
