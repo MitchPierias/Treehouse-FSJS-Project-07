@@ -1,0 +1,18 @@
+# Generated
+node_modules
+package-lock.json
+*.lock
+
+# Reference
+Results-Layout.png
+No-Results-Layout.png
+index.html
+
+# Notes
+NOTES.md
+
+# Keys
+./src/config.js
+
+# Mockups
+./*.png
