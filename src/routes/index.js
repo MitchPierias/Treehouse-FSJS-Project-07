@@ -6,7 +6,7 @@ import ErrorRoute from "./error.js";
 
 /**
  * Routes
- * @desc Manages application route logic
+ * @desc Manages application routing logic
  */
 export default function Routes() {
     return (

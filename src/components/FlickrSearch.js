@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
 // Components
 import Gallery from './Gallery';
-// Config
-import API_KEY from './../config';
+import { Consumer } from './../store';
 
-export default class FlickrSearch extends React.Component {
+class FlickrSearch extends React.Component {
 
     state = {
         isLoading:true,
@@ -29,7 +28,7 @@ export default class FlickrSearch extends React.Component {
 
     searchFlickr(query) {
         this.setState({ isLoading:true });
-        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY}&tags=${query}&format=json&nojsoncallback=1&per_page=12&page=${this.state.page}`)
+        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.props.api_key}&tags=${query}&format=json&nojsoncallback=1&per_page=12&page=${this.state.page}`)
         .then(response => response.json())
         .then(data => data.photos)
         .then(({ photo, pages, page }) => {
@@ -51,6 +50,11 @@ export default class FlickrSearch extends React.Component {
     }
 }
 
+/**
+ * Loading Component
+ * @desc Configures a loading component with the given topic
+ * @param {String} category The search topic 
+ */
 function Loading({ category }) {
     return (
         <Fragment>
@@ -64,3 +68,17 @@ function Loading({ category }) {
         </Fragment>
     )
 }
+
+/**
+ * Connect Context
+ * @desc Pipes mapped context data into the child component
+ * @param {Consumer} ContextConsumber React Context Consumer
+ * @param {Function} mapContextToProps Prop mapping function
+ */
+const connectContext = (ContextConsumber, mapContextToProps) => Child => props => (
+    <ContextConsumber>
+        {data => <Child {...mapContextToProps(data) } {...props} />}
+    </ContextConsumber>
+)
+
+export default connectContext(Consumer, api_key => ({ api_key }))(FlickrSearch);

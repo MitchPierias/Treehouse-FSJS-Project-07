@@ -3,7 +3,10 @@ import React from 'react';
 import Routes from './routes';
 // Config
 import API_KEY from './config';
+import { Provider } from './store';
 
 export default (
-    <Routes/>
+    <Provider value={API_KEY}>
+        <Routes/>
+    </Provider>
 )
