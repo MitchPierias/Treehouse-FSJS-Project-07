@@ -6,13 +6,12 @@ package-lock.json
 # Reference
 Results-Layout.png
 No-Results-Layout.png
-index.html
 
 # Notes
 NOTES.md
 
 # Keys
-./src/config.js
+config.js
 
 # Mockups
 ./*.png
